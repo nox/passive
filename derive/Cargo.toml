@@ -1,0 +1,23 @@
+[package]
+name = "passive_derive"
+version = "0.1.0" # update documentation link on bump
+authors = ["Anthony Ramine <nox@nox.paris>"]
+edition = "2018"
+description = "Proc macro crate for the passive traits."
+documentation = "https://docs.rs/passive_derive/0.1.0/"
+repository = "https://github.com/nox/passive"
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+proc-macro2 = "1.0.10"
+quote = "1.0.4"
+syn = "1.0.18"
+synstructure = "0.12.3"
+
+[lib]
+proc-macro = true
+doctest = false
+test = false

@@ -1,12 +1,13 @@
 [package]
 name = "passive"
-version = "0.1.0" # update documentation link on bump
+version = "0.1.1" # update documentation link on bump
 authors = ["Anthony Ramine <nox@nox.paris>"]
 edition = "2018"
 description = "A trio of marker traits to classify passive data structures"
-documentation = "https://docs.rs/passive/0.1.0/"
+documentation = "https://docs.rs/passive/0.1.1/"
 repository = "https://github.com/nox/passive"
 license = "Apache-2.0 OR MIT"
+readme = "README.md"
 
 keywords = [
     "data",
@@ -19,5 +20,21 @@ categories = [
     "no-std",
 ]
 
+[dependencies]
+derive = {version = "0.1", path = "./derive", optional = true, package = "passive_derive"}
+
 [lib]
+doctest = false
 test = false
+
+[[test]]
+name = "derive"
+required-features = ["derive"]
+
+[workspace]
+members = [
+    "derive",
+]
+
+[package.metadata.docs.rs]
+all-features = true

@@ -11,6 +11,8 @@ definitions of "plain old data", also known as "passive data structures".
   `u8` but not `bool`.
 * `Immutable` represents types that don't provide any inner mutability.
 
+Use the `derive` feature to safely derive implementations of those three traits.
+
 ## Licensing
 
 This crate is licensed under both the Apache 2.0 and MIT licenses, so you are

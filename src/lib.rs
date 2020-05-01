@@ -6,26 +6,56 @@
 
 //! # Passive
 //!
-//! See the documentation of the three marker traits defined by this crate for
-//! more information.
+//! This trait is `no_std` and a `derive` feature is provided to allow end
+//! users to derive implementations of the three traits.
+//!
+//! See the documentation of the crate items for more information.
 
 #![no_std]
+
+#[cfg(feature = "derive")]
+#[doc(hidden)]
+pub use derive::*;
 
 use core::cell::{Cell, UnsafeCell};
 use core::mem::{ManuallyDrop, MaybeUninit};
 
 /// Types whose values are always aligned, i.e. with an alignment of 1.
+///
+/// This trait is safely derivable with `#[derive(AlwaysAligned)]` when the
+/// `derive` feature is enabled.
+///
+/// # Safety
+///
+/// It is undefined behaviour to implement this trait for any type whose
+/// alignment is not equal to 1.
 pub unsafe trait AlwaysAligned {}
 
 /// Types for which all possible bit patterns represent a valid value.
 ///
 /// Note that `MaybeUninit<T>` and `[T; 0]` both implement this marker trait
-/// even if `T` does not.
+/// even when `T` does not.
+///
+/// This trait is safely derivable with `#[derive(AlwaysValid)]` when the
+/// `derive` feature is enabled.
+///
+/// # Safety
+///
+/// It is undefined behaviour to implement this trait for any type for which
+/// it exists a bit pattern that doesn't represent a valid value.
 pub unsafe trait AlwaysValid {}
 
 /// Types whose values are devoid of inner mutability.
 ///
-/// Note that `[T; 0]` implements this marker trait even if `T` does not.
+/// Note that `[T; 0]` implements this marker trait even when `T` does not.
+///
+/// This trait is safely derivable with `#[derive(Immutable)]` when the
+/// `derive` feature is enabled.
+///
+/// # Safety
+///
+/// It is undefined behaviour to implement this trait for any type that provides
+/// inner mutability.
 pub unsafe trait Immutable {}
 
 macro_rules! implements {
