@@ -64,16 +64,19 @@ macro_rules! implements {
     )+};
 }
 
+macro_rules! unsafe_impl {
+    ($trait_name:ident [$({$($param:ident),*})? $ty:ty]) => {
+        unsafe impl<$($($param),*)?> $trait_name for $ty
+        where
+            $($($param: $trait_name,)*)?
+        {}
+    };
+}
+
 macro_rules! qualifier {
-    (a [$({$($param:ident),*})? $ty:ty]) => {
-        unsafe impl<$($($param),*)?> AlwaysAligned for $ty {}
-    };
-    (v [$({$($param:ident),*})? $ty:ty]) => {
-        unsafe impl<$($($param),*)?> AlwaysValid for $ty {}
-    };
-    (i [$({$($param:ident),*})? $ty:ty]) => {
-        unsafe impl<$($($param),*)?> Immutable for $ty {}
-    };
+    (a $tt:tt) => { unsafe_impl!(AlwaysAligned $tt); };
+    (v $tt:tt) => { unsafe_impl!(AlwaysValid $tt); };
+    (i $tt:tt) => { unsafe_impl!(Immutable $tt); };
 }
 
 // `a` = `AlwaysAligned`

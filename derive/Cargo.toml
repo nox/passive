@@ -1,10 +1,10 @@
 [package]
 name = "passive_derive"
-version = "0.1.0" # update documentation link on bump
+version = "0.1.1" # update documentation link on bump
 authors = ["Anthony Ramine <nox@nox.paris>"]
 edition = "2018"
 description = "Proc macro crate for the passive traits."
-documentation = "https://docs.rs/passive_derive/0.1.0/"
+documentation = "https://docs.rs/passive_derive/0.1.1/"
 repository = "https://github.com/nox/passive"
 license = "Apache-2.0 OR MIT"
 readme = "README.md"

@@ -11,7 +11,7 @@
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
 use syn::spanned::Spanned;
-use synstructure::Structure;
+use synstructure::{AddBounds, Structure};
 
 macro_rules! derive_traits {
     ($($proc_name:ident: $trait_name:ident,)*) => {$(
@@ -28,8 +28,10 @@ derive_traits! {
     immutable: Immutable,
 }
 
-fn derive_trait(s: Structure, trait_path: TokenStream) -> TokenStream {
-    let impl_ = s.unsafe_bound_impl(&trait_path, quote!());
+fn derive_trait(mut s: Structure, trait_path: TokenStream) -> TokenStream {
+    let impl_ = s
+        .add_bounds(AddBounds::Generics)
+        .unsafe_bound_impl(&trait_path, quote!());
 
     let soundness_check = soundness_check(&s, trait_path);
 
@@ -38,21 +40,24 @@ fn derive_trait(s: Structure, trait_path: TokenStream) -> TokenStream {
 
 fn soundness_check(s: &Structure, trait_path: TokenStream) -> TokenStream {
     let (impl_generics, _, where_clause) = s.ast().generics.split_for_impl();
+    let where_clause = where_clause.map_or_else(|| quote!(where), |clause| quote!(#clause));
 
-    let check = s
-        .variants()
-        .iter()
-        .flat_map(|v| v.bindings())
-        .map(|b| {
-            let ty = &b.ast().ty;
-            let span = ty.span();
-            quote_spanned! { span => is::<#ty>() }
-        });
+    let extra_predicate = s
+        .ast()
+        .generics
+        .type_params()
+        .map(|param| quote!(#param: #trait_path));
+
+    let check = s.variants().iter().flat_map(|v| v.bindings()).map(|b| {
+        let ty = &b.ast().ty;
+        let span = ty.span();
+        quote_spanned! { span => is::<#ty>() }
+    });
 
     quote! {
         const _: () = {
             fn is<T: #trait_path>() {}
-            fn checks #impl_generics () #where_clause {
+            fn checks #impl_generics () #where_clause #(#extra_predicate),* {
                 #(#check;)*
             }
         };
