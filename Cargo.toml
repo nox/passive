@@ -1,0 +1,23 @@
+[package]
+name = "passive"
+version = "0.1.0" # update documentation link on bump
+authors = ["Anthony Ramine <nox@nox.paris>"]
+edition = "2018"
+description = "A trio of marker traits to classify passive data structures"
+documentation = "https://docs.rs/passive/0.1.0/"
+repository = "https://github.com/nox/passive"
+license = "Apache-2.0 OR MIT"
+
+keywords = [
+    "data",
+    "pod",
+]
+
+categories = [
+    "data-structures",
+    "encoding",
+    "no-std",
+]
+
+[lib]
+test = false
