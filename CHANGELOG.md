@@ -1,3 +1,7 @@
+# 0.1.3
+
+* Added the `packed` module.
+
 # 0.1.2
 
 * Fixed a shameful bug where I forgot all trait bounds on the implementations

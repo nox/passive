@@ -11,7 +11,10 @@
 //!
 //! See the documentation of the crate items for more information.
 
+#![deny(missing_docs)]
 #![no_std]
+
+pub mod packed;
 
 #[cfg(feature = "derive")]
 #[doc(hidden)]

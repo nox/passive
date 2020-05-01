@@ -13,6 +13,11 @@ definitions of "plain old data", also known as "passive data structures".
 
 Use the `derive` feature to safely derive implementations of those three traits.
 
+## Helper Types
+
+The module `packed` provides a bunch of types representing packed integers, they
+are all always aligned, always valid, and immutable.
+
 ## Licensing
 
 This crate is licensed under both the Apache 2.0 and MIT licenses, so you are
