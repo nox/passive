@@ -38,6 +38,16 @@ macro_rules! packed_integers {
         impl $packed {
             inline_fn_with_computed_doc! {
                 #[doc = concat!(
+                    "Creates a packed `", stringify!($ty), "` value from its ",
+                    "raw bytes.")]
+                #[inline]
+                pub fn from_bytes(bytes: [u8; mem::size_of::<$ty>()]) -> Self {
+                    Self { bytes }
+                }
+            }
+
+            inline_fn_with_computed_doc! {
+                #[doc = concat!(
                     "Creates an `", stringify!($ty), "` from this ",
                     "packed integer, reading its bytes in little endian.")]
                 #[inline]

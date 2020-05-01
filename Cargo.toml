@@ -1,10 +1,10 @@
 [package]
 name = "passive"
-version = "0.1.3" # update documentation link on bump
+version = "0.1.4" # update documentation link on bump
 authors = ["Anthony Ramine <nox@nox.paris>"]
 edition = "2018"
 description = "A trio of marker traits to classify passive data structures"
-documentation = "https://docs.rs/passive/0.1.3/"
+documentation = "https://docs.rs/passive/0.1.4/"
 repository = "https://github.com/nox/passive"
 license = "Apache-2.0 OR MIT"
 readme = "README.md"

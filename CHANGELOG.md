@@ -1,3 +1,10 @@
+# 0.1.4
+
+* Added `Packed*::from_bytes` to be able to actually create packed integers. I
+  didn't think about it before because I don't actually need such a method,
+  given my whole reason for writing this crate is to cast tranches of bytes to
+  tranches of structs that implement the three traits.
+
 # 0.1.3
 
 * Added the `packed` module.
